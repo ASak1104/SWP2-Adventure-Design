@@ -23,7 +23,7 @@ class Fire:
         return pointlist
 
     def finished(self, point, target):
-        if point in target:
+        if point == target:
             return True
         else:
             return False
@@ -31,4 +31,4 @@ class Fire:
 
 if __name__ == '__main__':
     fire = Fire()
-    print(fire.parabola(60,40))
+    print(fire.parabola(70,50))
