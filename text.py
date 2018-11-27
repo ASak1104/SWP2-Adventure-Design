@@ -1,8 +1,6 @@
 class Text:
 
     def __init__(self):
-        # 시작점의 좌표
-        self.startPoint = (28, 10)
         # ['                                                            \n']
         # ['     /_                                                     \n']
         # ['   |"""\-=                                                  \n']
@@ -11,15 +9,17 @@ class Text:
         # 게임에서의 초기 좌표계 설정(row, column)
         self.totalListLine = []
         for _ in range(27):
-            self.totalListLine.append(
-                [' '] * 80  # 80
-            )
+            self.totalListLine.append([' '] * 80)  # column의 갯수
         else:
             self.totalListLine.append([' '] * 5 + ['/', '_'] + [' '] * 73)
             self.totalListLine.append([' '] * 3 + ['|', '\"', '\"', '\"', '\\', '-', '='] + [' '] * 70)
             self.totalListLine.append([' '] * 3 + ['(', '_' * 4, ')'] + [' '] * 70)
-    # 시작시 맵 리턴
-    def initialMap(self, target):
+        # 시작점의 좌표
+        self.startPoint = (28, 10)
+
+
+    # 초기 맵 리턴
+    def initialMap(self):
         mainString = ''
         for myList in self.totalListLine:
             mainString += ''.join(myList) + '\n'
@@ -27,6 +27,7 @@ class Text:
         return mainString
 
     # 현재 맵 리턴
+    # target을 사용하지 않는 쪽으로 코드를 수정할 예정
     def currentMap(self, target, point):
         myMap = self.totalListLine
         # (row, column)
@@ -37,14 +38,12 @@ class Text:
             mainString = ''
             for myList in myMap:
                 mainString += ''.join(myList) + '\n'
-
             return mainString, True
         else:
             myMap[currentPoint[0]][currentPoint[1]] = '●'
             mainString = ''
             for myList in myMap:
                 mainString += ''.join(myList) + '\n'
-
             return mainString, False
 
 
