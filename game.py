@@ -39,6 +39,7 @@ class CanonGame(QWidget):
         self.txWindow.setReadOnly(True)
         self.txWindow.setAlignment(Qt.AlignLeft)
         font = self.txWindow.font()
+        font.setPointSize(font.pointSize() + 8)
         font.setFamily('Courier New')
         self.txWindow.setFont(font)
 
