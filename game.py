@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import QLayout, QGridLayout, QHBoxLayout, QVBoxLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
+from text import Text
 
 
 class CanonGame(QWidget):
@@ -36,12 +37,14 @@ class CanonGame(QWidget):
 
         # TextEdit Widget
         self.txWindow = QTextEdit()
+        self.txWindow.setFixedSize(650, 650)
         self.txWindow.setReadOnly(True)
         self.txWindow.setAlignment(Qt.AlignLeft)
         font = self.txWindow.font()
-        font.setPointSize(font.pointSize() + 8)
+        font.setPointSize(font.pointSize() + 4)
         font.setFamily('Courier New')
         self.txWindow.setFont(font)
+        self.txWindow.setText(Text().initialShape())
 
         # Layout
         hLayout1 = QHBoxLayout()
