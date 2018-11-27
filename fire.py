@@ -23,12 +23,6 @@ class Fire:
 
         return pointlist
 
-    def finished(self, point, target):
-        if point == target:
-            return True
-        else:
-            return False
-
 
 if __name__ == '__main__':
     fire = Fire()
