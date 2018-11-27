@@ -2,12 +2,11 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import QLayout, QGridLayout, QHBoxLayout, QVBoxLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
-from text import Text
 
 import random
 
-from AD_Project.fire import Fire
-from AD_Project.text import Text
+from fire import Fire
+from text import Text
 
 
 class CanonGame(QWidget):
@@ -82,7 +81,7 @@ class CanonGame(QWidget):
         self.fire = Fire()
         self.gameOver = False
 
-        self.txWindow.setPlaceholderText(self.text.)
+        self.txWindow.setPlaceholderText(self.text.initialMap())
         self.lnResult.setText("Start!")
         self.lnAngle.clear()
         self.lnPower.clear()
@@ -107,15 +106,14 @@ class CanonGame(QWidget):
             self.lnResult.setText("Not in the range")
             return
 
+        # 윈도우에 대포상태 출력
+        # self.txWindow.setText(self.text.currentMap())
+
         # 타깃이 맞았을 경우
         for t in self.fire.parabola(angle, power):
             if self.target == t:
                 self.lnResult.setText("Hit!")
                 self.gameOver = True
-
-        # 윈도우에 대포상태 출력
-        self.txWindow.setText(text.)
-
 
 
 if __name__ == '__main__':

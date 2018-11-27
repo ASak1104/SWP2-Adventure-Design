@@ -1,33 +1,42 @@
 class Text:
 
     def __init__(self):
-        # self.listLine1 = ['                                                            \n']
-        # self.listLine2 = ['     /_                                                     \n']
-        # self.listLine3 = ['   |"""\-=                                                  \n']
-        # self.listLine4 = ['   (____)                                                   ']
+        # ['                                                            \n']
+        # ['     /_                                                     \n']
+        # ['   |"""\-=                                                  \n']
+        # ['   (____)                                                   ']
+
+        # 게임에서의 초기 좌표계 설정
         self.totalListLine = []
         for _ in range(27):
             self.totalListLine.append(
-                ['                                                            l\n']  # 60
+                ['                                                                                \n']  # 80
             )
         else:
             self.totalListLine.append(
-                ['     /_                                                     l\n']
+                ['     /_                                                                         \n']
             )
             self.totalListLine.append(
-                ['   |"""\-=                                                  l\n']
+                ['   |"""\-=                                                                      \n']
             )
             self.totalListLine.append(
-                ['   (____)                                                   l']
+                ['   (____)                                                                       ']
             )
 
+        # 대포가 날아가는 포물선의 좌표계
+        self.currentListLine = self.totalListLine
 
-    def initialShape(self):
+
+    def initialMap(self):
         mainString = ''
         for myList in self.totalListLine:
             mainString += ''.join(myList)
 
         return mainString
+
+
+    def currentMap(self, listPoint):
+        pass
 
 
 if __name__ == '__main__':
