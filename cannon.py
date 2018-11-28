@@ -44,6 +44,7 @@ class Cannon:
 
     # 포탄의 위치가 담긴 맵과 명중 여부를 반환하는 메소드
     def currentMap(self, point):
+        # 포탄이 움직이는 모습을 구현할 때 사용할 코드
         # myMap = deepcopy(self.totalListLine)
         myMap = self.mutableMap
         # (row, column)
