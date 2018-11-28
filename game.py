@@ -87,7 +87,7 @@ class CanonGame(QWidget):
         self.fire = Fire()
         self.gameOver = False
 
-        self.txWindow.setText(self.text.initialMap(self.target))
+        self.txWindow.setText(self.text.initialMap())
         self.lnResult.setText("Start!")
         self.lnAngle.clear()
         self.lnPower.clear()
@@ -107,6 +107,7 @@ class CanonGame(QWidget):
         if self.gameOver == True:
             self.lnResult.setText("Game Over")
             return
+
         # 범위에서 벗어난 값을 받았을 경우
         if int(self.lnAngle.text()) < 40 or int(self.lnAngle.text()) > 70 or int(self.lnPower.text()) < 30 or int(self.lnPower.text()) > 50:
             self.lnResult.setText("Not in the range")
