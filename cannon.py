@@ -38,6 +38,7 @@ class Cannon:
 
 
     # 포탄의 위치가 담긴 맵과 명중 여부를 반환하는 메소드
+    # 고정돼야 할 self.totalListLine 이 변하는 버그가 있
     def currentMap(self, point):
         myMap = self.totalListLine
         # (row, column)
@@ -52,6 +53,11 @@ class Cannon:
 
 
 if __name__ == '__main__':
+    import time
     cannon = Cannon((20, 50))
+    tempList = [(0, 0), (1, 1), (2, 2), (3, 3)]
     print(cannon.initialMap())
-    print(cannon.currentMap((40, 40))[0])
+    for item in tempList:
+        print(cannon.currentMap(item)[0])
+        time.sleep(1)
+    print(cannon.initialMap())
