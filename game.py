@@ -6,8 +6,8 @@ from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
 import random
 import time
 
-from AD_Project.fire import Fire
-from AD_Project.text import Text
+from fire import Fire
+from cannon import Cannon
 
 
 class CanonGame(QWidget):
@@ -71,7 +71,7 @@ class CanonGame(QWidget):
         mainLayout.addLayout(hLayout2)
 
         self.setLayout(mainLayout)
-        self.setWindowTitle('Canon Game')
+        self.setWindowTitle('Cannon Game')
 
         # Start Game
         self.btnStartClicked()
@@ -83,17 +83,18 @@ class CanonGame(QWidget):
         self.target = (self.targetRow, self.targetColumn)
 
         # 게임 시작시 초기화
-        self.text = Text()
+        self.cannon = Cannon(self.target)
         self.fire = Fire()
         self.gameOver = False
 
-        self.txWindow.setText(self.text.initialMap())
+        self.txWindow.setText(self.cannon.initialMap())
         self.lnResult.setText("Start!")
         self.lnAngle.clear()
         self.lnPower.clear()
 
+
     def btnFireClicked(self):
-        self.text = Text()
+        self.cannon = Cannon(self.target)
 
         # 각도 와 파 설정
         try:
@@ -115,12 +116,13 @@ class CanonGame(QWidget):
 
         # 현재 맵 출력
         for point in self.fire.parabola(angle, power):
-            shape = self.text.currentMap(self.target, point)[0]
-            hit = self.text.currentMap(self.target, point)[1]
+            shape = self.cannon.currentMap(point)[0]
+            hit = self.cannon.currentMap(point)[1]
             self.txWindow.setText(shape)
             if hit:
                 self.lnResult.setText("Hit!")
                 self.gameOver = True
+                break
             else:
                 self.lnResult.setText("Miss!")
 
