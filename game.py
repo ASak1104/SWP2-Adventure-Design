@@ -101,6 +101,7 @@ class CanonGame(QWidget):
             power = int(self.lnPower.text())
         except:
             self.lnResult.setText("Not integer")
+            return
 
         # 게임 완료 시
         if self.gameOver == True:
