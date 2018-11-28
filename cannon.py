@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 class Cannon:
 
     def __init__(self, target):
@@ -15,6 +17,9 @@ class Cannon:
             self.totalListLine.append([' '] * 5 + ['/', '_'] + [' '] * 73)
             self.totalListLine.append([' '] * 3 + ['|', '\"', '\"', '\"', '\\', '-', '='] + [' '] * 70)
             self.totalListLine.append([' '] * 3 + ['(', '_' * 4, ')'] + [' '] * 70)
+
+        # 리스트 복사 후에 로직을 수정할 필요가 있음
+        self.mutableMap = deepcopy(self.totalListLine)
 
         # 타겟 지정
         self.target = target
@@ -38,9 +43,9 @@ class Cannon:
 
 
     # 포탄의 위치가 담긴 맵과 명중 여부를 반환하는 메소드
-    # 고정돼야 할 self.totalListLine 이 변하는 버그가 있
     def currentMap(self, point):
-        myMap = self.totalListLine
+        # myMap = deepcopy(self.totalListLine)
+        myMap = self.mutableMap
         # (row, column)
         currentPoint = (self.startPoint[0] - point[1], self.startPoint[1] + point[0])
         if currentPoint == self.target:
@@ -49,7 +54,6 @@ class Cannon:
         else:
             myMap[currentPoint[0]][currentPoint[1]] = '●'
             return self.mapToString(myMap), False
-
 
 
 if __name__ == '__main__':

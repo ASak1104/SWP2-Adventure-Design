@@ -125,6 +125,12 @@ class CanonGame(QWidget):
                 break
             else:
                 self.lnResult.setText("Miss!")
+            # time.sleep(0.05)
+
+
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Escape:
+            self.close()
 
 
 if __name__ == '__main__':
