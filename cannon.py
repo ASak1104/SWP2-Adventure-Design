@@ -18,12 +18,12 @@ class Cannon:
             self.totalListLine.append([' '] * 3 + ['|', '\"', '\"', '\"', '\\', '-', '='] + [' '] * 70)
             self.totalListLine.append([' '] * 3 + ['(', '_' * 4, ')'] + [' '] * 70)
 
-        # 리스트 복사 후에 로직을 수정할 필요가 있음
-        self.mutableMap = deepcopy(self.totalListLine)
-
         # 타겟 지정
         self.target = target
         self.totalListLine[target[0]][target[1]] = '◎'
+
+        # 맵 복사, 후에 로직을 수정할 필요가 있음
+        self.mutableMap = deepcopy(self.totalListLine)
 
         # 시작점의 좌표
         self.startPoint = (28, 10)
