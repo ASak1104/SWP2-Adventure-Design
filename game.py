@@ -10,7 +10,7 @@ from fire import Fire
 from cannon import Cannon
 
 
-class CanonGame(QWidget):
+class CannonGame(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -137,6 +137,6 @@ if __name__ == '__main__':
 
     import sys
     app = QApplication(sys.argv)
-    game = CanonGame()
+    game = CannonGame()
     game.show()
     sys.exit(app.exec_())
