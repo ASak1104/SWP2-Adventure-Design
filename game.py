@@ -30,10 +30,16 @@ class CanonGame(QWidget):
 
         self.lbPower = QLabel('Power(30 ~ 50):')
 
+        self.lbBullet = QLabel('Bullet: ')
+
         # LineEdit Widget
         self.lnResult = QLineEdit()
         self.lnResult.setReadOnly(True)
         self.lnResult.setAlignment(Qt.AlignCenter)
+
+        self.lnBullet = QLineEdit()
+        self.lnBullet.setReadOnly(True)
+        self.lnBullet.setAlignment(Qt.AlignCenter)
 
         # QSlider Widget
         self.slAngle = QSlider(Qt.Horizontal)
@@ -67,6 +73,8 @@ class CanonGame(QWidget):
         hLayout2 = QHBoxLayout()
         hLayout1.addWidget(self.btnNewGame)
         hLayout1.addStretch(1)
+        hLayout1.addWidget(self.lbBullet)
+        hLayout1.addWidget(self.lnBullet)
         hLayout1.addWidget(self.lbResult)
         hLayout1.addWidget(self.lnResult)
         hLayout2.addWidget(self.lbAngle)
@@ -98,9 +106,11 @@ class CanonGame(QWidget):
         self.cannon = Cannon(self.target)
         self.fire = Fire()
         self.gameOver = False
+        self.bullet = 5
 
         self.txWindow.setText(self.cannon.initialMap())
-        self.lnResult.setText("Start!")
+        self.lnResult.setText('Start!')
+        self.lnBullet.setText(str(self.bullet))
         self.slAngle.setValue(55)
         self.slPower.setValue(40)
 
@@ -113,12 +123,12 @@ class CanonGame(QWidget):
             angle = int(self.slAngle.value())
             power = int(self.slPower.value())
         except:
-            self.lnResult.setText("Not integer")
+            self.lnResult.setText('Not integer')
             return
 
         # 게임 완료 시
         if self.gameOver == True:
-            self.lnResult.setText("Game Over")
+            self.lnResult.setText('Game Over')
             return
 
         # 현재 맵 출력
@@ -127,12 +137,16 @@ class CanonGame(QWidget):
             hit = self.cannon.currentMap(point)[1]
             self.txWindow.setText(shape)
             if hit:
-                self.lnResult.setText("Hit!")
+                self.lnResult.setText('Hit!')
                 self.gameOver = True
                 break
             else:
-                self.lnResult.setText("Miss!")
+                self.lnResult.setText('Miss!')
             # time.sleep(0.05)
+        self.bullet -= 1
+        self.lnBullet.setText(str(self.bullet))
+        if self.bullet == 0:
+            self.gameOver = True
 
     # 단축키 설정
     def keyPressEvent(self, e):
