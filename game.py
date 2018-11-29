@@ -5,8 +5,8 @@ from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel, QSlider
 
 import random
 
-from AD_Project.fire import Fire
-from AD_Project.cannon import Cannon
+from fire import Fire
+from cannon import Cannon
 
 
 class CanonGame(QWidget):
@@ -152,8 +152,11 @@ class CanonGame(QWidget):
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_Escape:
             self.close()
-        elif e.key() == Qt.Key_Enter:
+        elif e.key() == Qt.Key_N:
+            self.btnNewGameClicked()
+        elif e.key() == Qt.Key_Enter or Qt.Key_Return:
             self.btnFireClicked()
+
 
 if __name__ == '__main__':
 
