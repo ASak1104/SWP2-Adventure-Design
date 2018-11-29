@@ -134,7 +134,7 @@ class CanonGame(QWidget):
                 self.lnResult.setText("Miss!")
             # time.sleep(0.05)
 
-
+    # 단축키 설정
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_Escape:
             self.close()
