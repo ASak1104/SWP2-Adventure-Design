@@ -1,24 +1,23 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtWidgets import QLayout, QGridLayout, QHBoxLayout, QVBoxLayout
-from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
+from PyQt5.QtWidgets import QLayout, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel, QSlider
 
 import random
-import time
 
-from fire import Fire
-from cannon import Cannon
+from AD_Project.fire import Fire
+from AD_Project.cannon import Cannon
 
 
-class CannonGame(QWidget):
+class CanonGame(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
 
         # Button Widget
-        self.btnStart = QToolButton()
-        self.btnStart.setText('Start!')
-        self.btnStart.clicked.connect(self.btnStartClicked)
+        self.btnNewGame = QToolButton()
+        self.btnNewGame.setText('New Game!')
+        self.btnNewGame.clicked.connect(self.btnNewGameClicked)
 
         self.btnFire = QToolButton()
         self.btnFire.setText('Fire!')
@@ -36,9 +35,22 @@ class CannonGame(QWidget):
         self.lnResult.setReadOnly(True)
         self.lnResult.setAlignment(Qt.AlignCenter)
 
-        self.lnAngle = QLineEdit()
+        # QSlider Widget
+        self.slAngle = QSlider(Qt.Horizontal)
+        self.slAngle.setMinimum(40)
+        self.slAngle.setMaximum(70)
+        self.slAngle.setValue(55)
+        self.slAngle.setTickPosition(QSlider.TicksBelow)
+        self.slAngle.setTickInterval(5)
+        self.slAngle.setFixedWidth(200)
 
-        self.lnPower = QLineEdit()
+        self.slPower = QSlider(Qt.Horizontal)
+        self.slPower.setMinimum(30)
+        self.slPower.setMaximum(50)
+        self.slPower.setValue(55)
+        self.slPower.setTickPosition(QSlider.TicksBelow)
+        self.slPower.setTickInterval(5)
+        self.slPower.setFixedWidth(200)
 
         # TextEdit Widget
         self.txWindow = QTextEdit()
@@ -53,14 +65,14 @@ class CannonGame(QWidget):
         # Layout
         hLayout1 = QHBoxLayout()
         hLayout2 = QHBoxLayout()
-        hLayout1.addWidget(self.btnStart)
+        hLayout1.addWidget(self.btnNewGame)
         hLayout1.addStretch(1)
         hLayout1.addWidget(self.lbResult)
         hLayout1.addWidget(self.lnResult)
         hLayout2.addWidget(self.lbAngle)
-        hLayout2.addWidget(self.lnAngle)
+        hLayout2.addWidget(self.slAngle)
         hLayout2.addWidget(self.lbPower)
-        hLayout2.addWidget(self.lnPower)
+        hLayout2.addWidget(self.slPower)
         hLayout2.addStretch(1)
         hLayout2.addWidget(self.btnFire)
 
@@ -74,9 +86,9 @@ class CannonGame(QWidget):
         self.setWindowTitle('Cannon Game')
 
         # Start Game
-        self.btnStartClicked()
+        self.btnNewGameClicked()
 
-    def btnStartClicked(self):
+    def btnNewGameClicked(self):
         # target 위치 지정
         self.targetColumn = random.randint(40, 60)
         self.targetRow = random.randint(18, 21)
@@ -89,17 +101,17 @@ class CannonGame(QWidget):
 
         self.txWindow.setText(self.cannon.initialMap())
         self.lnResult.setText("Start!")
-        self.lnAngle.clear()
-        self.lnPower.clear()
+        self.slAngle.setValue(55)
+        self.slPower.setValue(40)
 
 
     def btnFireClicked(self):
         self.cannon = Cannon(self.target)
 
-        # 각도 와 파 설정
+        # 각도 와 파워 설정
         try:
-            angle = int(self.lnAngle.text())
-            power = int(self.lnPower.text())
+            angle = int(self.slAngle.value())
+            power = int(self.slPower.value())
         except:
             self.lnResult.setText("Not integer")
             return
@@ -107,11 +119,6 @@ class CannonGame(QWidget):
         # 게임 완료 시
         if self.gameOver == True:
             self.lnResult.setText("Game Over")
-            return
-
-        # 범위에서 벗어난 값을 받았을 경우
-        if int(self.lnAngle.text()) < 40 or int(self.lnAngle.text()) > 70 or int(self.lnPower.text()) < 30 or int(self.lnPower.text()) > 50:
-            self.lnResult.setText("Not in the range")
             return
 
         # 현재 맵 출력
@@ -131,12 +138,13 @@ class CannonGame(QWidget):
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_Escape:
             self.close()
-
+        elif e.key() == Qt.Key_Enter:
+            self.btnFireClicked()
 
 if __name__ == '__main__':
 
     import sys
     app = QApplication(sys.argv)
-    game = CannonGame()
+    game = CanonGame()
     game.show()
     sys.exit(app.exec_())
