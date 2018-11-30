@@ -48,7 +48,7 @@ class CanonGame(QWidget):
         self.slAngle.setValue(55)
         self.slAngle.setTickPosition(QSlider.TicksBelow)
         self.slAngle.setTickInterval(5)
-        self.slAngle.setFixedWidth(200)
+        self.slAngle.setFixedWidth(250)
 
         self.slPower = QSlider(Qt.Horizontal)
         self.slPower.setMinimum(30)
@@ -56,7 +56,7 @@ class CanonGame(QWidget):
         self.slPower.setValue(55)
         self.slPower.setTickPosition(QSlider.TicksBelow)
         self.slPower.setTickInterval(5)
-        self.slPower.setFixedWidth(200)
+        self.slPower.setFixedWidth(250)
 
         # TextEdit Widget
         self.txWindow = QTextEdit()
@@ -106,11 +106,12 @@ class CanonGame(QWidget):
         self.cannon = Cannon(self.target)
         self.fire = Fire()
         self.gameOver = False
-        self.bullet = 5
+        self.bullet = ["●", "●", "●", "●"]
+        self.turn = -1
 
         self.txWindow.setText(self.cannon.initialMap())
         self.lnResult.setText('Start!')
-        self.lnBullet.setText(str(self.bullet))
+        self.lnBullet.setText(" ".join(self.bullet))
         self.slAngle.setValue(55)
         self.slPower.setValue(40)
 
@@ -143,10 +144,16 @@ class CanonGame(QWidget):
             else:
                 self.lnResult.setText('Miss!')
             # time.sleep(0.05)
-        self.bullet -= 1
-        self.lnBullet.setText(str(self.bullet))
-        if self.bullet == 0:
+
+        if self.bullet[0] == "○":
+            self.lnResult.setText('Fail!')
             self.gameOver = True
+            return
+
+        del(self.bullet[self.turn])
+        self.turn -= 1
+        self.bullet.append("○")
+        self.lnBullet.setText(" ".join(self.bullet))
 
     # 단축키 설정
     def keyPressEvent(self, e):
