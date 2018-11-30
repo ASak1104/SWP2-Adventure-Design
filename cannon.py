@@ -10,13 +10,14 @@ class Cannon:
 
         # 게임에서의 초기 행렬 설정(row, column)
         self.totalListLine = []
-        # (30 * 80) matrix, (0, 0) ~ (29, 79)
-        for _ in range(27):
+        # (30 * 80) matrix, (0, 0) ~ (29, 79)■
+        for _ in range(26):
             self.totalListLine.append([' '] * 80)  # column 의 갯수
         else:
             self.totalListLine.append([' '] * 5 + ['/', '_'] + [' '] * 73)
             self.totalListLine.append([' '] * 3 + ['|', '\"', '\"', '\"', '\\', '-', '='] + [' '] * 70)
             self.totalListLine.append([' '] * 3 + ['(', '_' * 4, ')'] + [' '] * 70)
+            self.totalListLine.append(['▀'] * 80)
 
         # 타겟 지정
         self.target = target
@@ -26,7 +27,7 @@ class Cannon:
         self.mutableMap = deepcopy(self.totalListLine)
 
         # 시작점의 좌표
-        self.startPoint = (28, 10)
+        self.startPoint = (27, 10)
 
 
     # 맵을 문자열로 변환하는 메소드
