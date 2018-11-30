@@ -26,7 +26,7 @@ class Cannon:
         # 맵 복사, 후에 로직을 수정할 필요가 있음
         self.mutableMap = deepcopy(self.totalListLine)
 
-        # 시작점의 좌표
+        # 시작점의 좌표 (row, column)
         self.startPoint = (27, 10)
 
 
@@ -48,7 +48,7 @@ class Cannon:
         # 포탄이 움직이는 모습을 구현할 때 사용할 코드
         # myMap = deepcopy(self.totalListLine)
         myMap = self.mutableMap
-        # (row, column)
+        # currentPoint(row, column), point(x, y)
         currentPoint = (self.startPoint[0] - point[1], self.startPoint[1] + point[0])
         if currentPoint == self.target:
             myMap[currentPoint[0]][currentPoint[1]] = '★'
