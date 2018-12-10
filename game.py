@@ -28,16 +28,16 @@ class CanonGame(QWidget):
         self.lbResult = QLabel('Status:')
         self.lbAngle = QLabel('Angle(40 ~ 70):')
         self.lbPower = QLabel('Power(30 ~ 50):')
-        self.lbBullet = QLabel('Bullet: ')
+        self.lbBoulet = QLabel('Boulet: ')
 
         # LineEdit Widget
         self.lnResult = QLineEdit()
         self.lnResult.setReadOnly(True)
         self.lnResult.setAlignment(Qt.AlignCenter)
 
-        self.lnBullet = QLineEdit()
-        self.lnBullet.setReadOnly(True)
-        self.lnBullet.setAlignment(Qt.AlignCenter)
+        self.lnBoulet = QLineEdit()
+        self.lnBoulet.setReadOnly(True)
+        self.lnBoulet.setAlignment(Qt.AlignCenter)
 
         # QSlider Widget
         self.slAngle = QSlider(Qt.Horizontal)
@@ -46,7 +46,7 @@ class CanonGame(QWidget):
         self.slAngle.setValue(55)
         self.slAngle.setTickPosition(QSlider.TicksBelow)
         self.slAngle.setTickInterval(5)
-        self.slAngle.setFixedWidth(200)
+        self.slAngle.setFixedWidth(250)
 
         self.slPower = QSlider(Qt.Horizontal)
         self.slPower.setMinimum(30)
@@ -54,7 +54,7 @@ class CanonGame(QWidget):
         self.slPower.setValue(55)
         self.slPower.setTickPosition(QSlider.TicksBelow)
         self.slPower.setTickInterval(5)
-        self.slPower.setFixedWidth(200)
+        self.slPower.setFixedWidth(250)
 
         # TextEdit Widget
         self.txWindow = QTextEdit()
@@ -71,8 +71,8 @@ class CanonGame(QWidget):
         hLayout2 = QHBoxLayout()
         hLayout1.addWidget(self.btnNewGame)
         hLayout1.addStretch(1)
-        hLayout1.addWidget(self.lbBullet)
-        hLayout1.addWidget(self.lnBullet)
+        hLayout1.addWidget(self.lbBoulet)
+        hLayout1.addWidget(self.lnBoulet)
         hLayout1.addWidget(self.lbResult)
         hLayout1.addWidget(self.lnResult)
         hLayout2.addWidget(self.lbAngle)
@@ -104,11 +104,12 @@ class CanonGame(QWidget):
         self.cannon = Cannon(self.target)
         self.fire = Fire()
         self.gameOver = False
-        self.bullet = 5
+        self.boulet = ["●", "●", "●", "●"]
+        self.turn = -1
 
         self.txWindow.setText(self.cannon.initialMap())
         self.lnResult.setText('Start!')
-        self.lnBullet.setText(str(self.bullet))
+        self.lnBoulet.setText(" ".join(self.boulet))
         self.slAngle.setValue(55)
         self.slPower.setValue(40)
 
@@ -134,20 +135,28 @@ class CanonGame(QWidget):
             shape = self.cannon.currentMap(point)[0]
             hit = self.cannon.currentMap(point)[1]
             self.txWindow.setText(shape)
+
             if hit:
                 self.lnResult.setText('Hit!')
                 self.gameOver = True
                 break
             else:
                 self.lnResult.setText('Miss!')
-            # Text animation effect
+
+            # 에니메이션 효과 구현
             loop = QEventLoop()
             QTimer.singleShot(100, loop.quit)
             loop.exec_()
-        self.bullet -= 1
-        self.lnBullet.setText(str(self.bullet))
-        if self.bullet == 0:
+
+        if self.boulet[0] == "○":
+            self.lnResult.setText('Fail!')
             self.gameOver = True
+            return
+
+        del (self.boulet[self.turn])
+        self.turn -= 1
+        self.boulet.append("○")
+        self.lnBoulet.setText(" ".join(self.boulet))
 
     # 단축키 설정
     def keyPressEvent(self, e):
