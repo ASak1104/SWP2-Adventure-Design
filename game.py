@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import QLayout, QHBoxLayout, QVBoxLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel, QSlider
+from PyQt5.QtCore import QEventLoop, QTimer
 
 import random
 
@@ -142,7 +143,10 @@ class CanonGame(QWidget):
                 break
             else:
                 self.lnResult.setText('Miss!')
-            # time.sleep(0.05)
+            # Text animation effect
+            loop = QEventLoop()
+            QTimer.singleShot(100, loop.quit)
+            loop.exec_()
         self.bullet -= 1
         self.lnBullet.setText(str(self.bullet))
         if self.bullet == 0:

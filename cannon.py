@@ -23,7 +23,7 @@ class Cannon:
         self.target = target
         self.totalListLine[target[0]][target[1]] = '◎'
 
-        # 맵 복사, 후에 로직을 수정할 필요가 있음
+        # 맵 깊은 복사, 새로운 리스트 객체
         self.mutableMap = deepcopy(self.totalListLine)
 
         # 시작점의 좌표 (row, column)
@@ -46,10 +46,12 @@ class Cannon:
     # 포탄의 위치가 담긴 맵과 명중 여부를 반환하는 메소드
     def currentMap(self, point):
         # 포탄이 움직이는 모습을 구현할 때 사용할 코드
-        # myMap = deepcopy(self.totalListLine)
         myMap = self.mutableMap
         # currentPoint(row, column), point(x, y)
         currentPoint = (self.startPoint[0] - point[1], self.startPoint[1] + point[0])
+        for row in self.mutableMap:
+            if '●' in row:
+                row[row.index('●')] = '○'
         if currentPoint == self.target:
             myMap[currentPoint[0]][currentPoint[1]] = '★'
             return self.mapToString(myMap), True

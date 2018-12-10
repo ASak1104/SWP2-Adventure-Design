@@ -18,7 +18,7 @@ class Fire:
             y = int(((power * math.sin(angle * math.pi / 180)) * t) - (0.5 * g * t * t))
             pointlist.append((x//20, y//20))
             t += 1
-        del pointlist[-1]
+        # del pointlist[-1]
 
 
         return pointlist
