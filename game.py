@@ -26,11 +26,8 @@ class CanonGame(QWidget):
 
         # Label Widget
         self.lbResult = QLabel('Status:')
-
         self.lbAngle = QLabel('Angle(40 ~ 70):')
-
         self.lbPower = QLabel('Power(30 ~ 50):')
-
         self.lbBullet = QLabel('Bullet: ')
 
         # LineEdit Widget
