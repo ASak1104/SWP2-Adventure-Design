@@ -16,9 +16,8 @@ class Fire:
         while y >= 0:
             x = int((power * math.cos(angle * math.pi / 180)) * t)
             y = int(((power * math.sin(angle * math.pi / 180)) * t) - (0.5 * g * t * t))
-            pointlist.append((x//20, y//20))
+            pointlist.append((x//20, y//20)) if y//20 >= -2 else pointlist.append((x//20, -2))
             t += 1
-        # del pointlist[-1]
 
 
         return pointlist
